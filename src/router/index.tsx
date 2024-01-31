@@ -11,7 +11,20 @@ export default function MRoutes() {
   const element = useRoutes([{
     path: '/login',
     element: LazyLoad('login/login')
-  }, { path: '/sendBox', element: LazyLoad('sendBox/SendBox') }])
+  },
+  {
+    path: '/',
+    element: LazyLoad('sendBox/SendBox'),
+    children: [
+      { path: '', element: <Redirect to="/home"></Redirect> },
+      { path: '/home', element: LazyLoad("sendBox/home/Home") },
+      { path: '/user-manage/list', element: LazyLoad("sendBox/user-manage/UserList") },
+      { path: '/right-manage/role/list', element: LazyLoad("sendBox/right-manage/RoleList") },
+      { path: '/right-manage/right/list', element: LazyLoad("sendBox/right-manage/RightList") },
+      { path: '*', element: LazyLoad("sendBox/notfound/NotFound") }
+    ]
+  }
+  ])
   return element
 }
 
